@@ -39,12 +39,12 @@ public class PatientController {
 
 
 
-    @GetMapping(value = "/details/{name}",produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Map<String,Object>> getPatientData(@PathVariable("name") String name){
+   @GetMapping(value = "/details/{name}",produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Map<String,Object>> getPatientData(@PathVariable("name") Optional<String> name){
         Map<String,Object> result = new HashMap<>();
 
-        if(patientData.size()>0 && name !=null){
-         Optional<Map.Entry<String, Patient>> detail =   patientData.entrySet().stream().filter(k -> k.getKey().equalsIgnoreCase(name)).findAny();
+        if(patientData.size()>0 && name.isPresent()){
+         Optional<Map.Entry<String, Patient>> detail =   patientData.entrySet().stream().filter(k -> k.getKey().equalsIgnoreCase(name.get())).findAny();
          if(detail.isPresent()) {
              Patient patient = detail.get().getValue();
              result.put("details", patient);
@@ -59,6 +59,5 @@ public class PatientController {
        return ResponseEntity.ok(result);
 
     }
-
 
 }
