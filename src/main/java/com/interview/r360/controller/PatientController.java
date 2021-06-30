@@ -43,7 +43,7 @@ public class PatientController {
     public ResponseEntity<Map<String,Object>> getPatientData(@PathVariable("name") String name){
         Map<String,Object> result = new HashMap<>();
 
-        if(patientData.size()>0){
+        if(patientData.size()>0 && name !=null){
          Optional<Map.Entry<String, Patient>> detail =   patientData.entrySet().stream().filter(k -> k.getKey().equalsIgnoreCase(name)).findAny();
          if(detail.isPresent()) {
              Patient patient = detail.get().getValue();
