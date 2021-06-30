@@ -59,5 +59,17 @@ public class PatientController {
        return ResponseEntity.ok(result);
 
     }
+    
+    @GetMapping(value = "/details",produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Map<String,Object>> getPatientDatails(){
+        Map<String,Object> result = new HashMap<>();
+
+        if(patientData.size()>0 ){
+            result.putAll(patientData);
+        }else{
+            result.put("error","patient data is not available");
+        }
+        return ResponseEntity.ok(result);
+    }
 
 }
